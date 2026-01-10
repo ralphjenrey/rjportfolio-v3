@@ -5,7 +5,7 @@ const projects = [
     title: "EZ Party",
     description:
       "Full-stack party booking platform with mobile apps and admin dashboard. Users can browse venues, book events, and manage reservations seamlessly.",
-    tags: ["React Native", "Next.js", "Node.js", "Admin Panel"],
+    tags: ["Flutter", "Next.js", "Node.js", "AWS", "MongoDB"],
     links: {
       ios: "https://apps.apple.com/ph/app/ez-party/id6749178864",
       android: "https://play.google.com/store/apps/details?id=com.ezpartyph.ezparty",
@@ -19,7 +19,7 @@ const projects = [
     title: "Toby's Estate Coffee",
     description:
       "Loyalty app and website for a premium coffee brand. Features rewards tracking, store locator, and seamless ordering experience.",
-    tags: ["React Native", "iOS", "Android", "Web"],
+    tags: ["Flutter", "React", "PostgreSQL", "Firebase", "PHP"],
     links: {
       website: "https://www.tobysestateph.com/",
       android: "https://play.google.com/store/apps/details?id=com.efren.tobyestateloyaltyapp",
@@ -32,7 +32,7 @@ const projects = [
     title: "Euromovers",
     description:
       "Moving services platform with customer and admin apps. Complete logistics solution for booking, tracking, and managing relocations.",
-    tags: ["Mobile Apps", "Admin Dashboard", "iOS", "Android"],
+    tags: ["Laravel", "Flutter", "VPS", "MySQL", "MongoDB", "React", "Node.js"],
     links: {
       web: "https://euromovers.dk",
       android: "https://play.google.com/store/apps/details?id=io.eumovedk.survey",
@@ -45,7 +45,7 @@ const projects = [
     title: "CalcMenu Lab AI",
     description:
       "AI-powered recipe management platform featuring Recipe Converter and Recipe Creator tools. Built with Flask, Angular 18, and Azure Cloud Functions.",
-    tags: ["Flask", "Angular 18", "Azure", "AI/ML"],
+    tags: ["Flask", "Angular 18", "Azure", "OPEN AI", ".NET"],
     links: {
       website: "https://www.calcmenulab.ai/",
     },
