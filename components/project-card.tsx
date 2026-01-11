@@ -34,7 +34,7 @@ export function ProjectCard({ project, index, compact = false }: ProjectCardProp
 
   if (compact) {
     return (
-      <div className="group p-6 rounded-lg bg-card border border-border hover:border-primary/50 transition-all duration-300">
+      <div className="group p-6 rounded-lg bg-card border border-border hover:border-primary/50 hover:shadow-lg hover:scale-105 transition-all duration-500">
         <div className="aspect-video relative mb-4 rounded-md overflow-hidden bg-secondary">
           <Image
             src={project.image || "/placeholder.svg"}
@@ -58,9 +58,9 @@ export function ProjectCard({ project, index, compact = false }: ProjectCardProp
   }
 
   return (
-    <div className={`group grid lg:grid-cols-2 gap-8 items-center ${isEven ? "" : "lg:flex-row-reverse"}`}>
+    <div className={`group grid lg:grid-cols-2 gap-8 items-center ${isEven ? "" : "lg:flex-row-reverse"} hover:scale-[1.02] transition-transform duration-500`}>
       <div className={`${isEven ? "lg:order-1" : "lg:order-2"}`}>
-        <div className="relative aspect-[4/3] rounded-lg overflow-hidden bg-secondary border border-border">
+        <div className="relative aspect-[4/3] rounded-lg overflow-hidden bg-secondary border border-border shadow-lg hover:shadow-2xl transition-shadow duration-500">
           <Image
             src={project.image || "/placeholder.svg"}
             alt={project.title}
@@ -89,7 +89,7 @@ function ProjectLinks({ links }: { links: ProjectLinks }) {
   return (
     <div className="flex flex-wrap gap-2 pt-2">
       {links.ios && (
-        <Button variant="outline" size="sm" asChild>
+        <Button variant="outline" size="sm" asChild className="hover:scale-110 transition-transform duration-300">
           <Link href={links.ios} target="_blank">
             <Apple className="h-4 w-4 mr-1" />
             iOS
@@ -97,7 +97,7 @@ function ProjectLinks({ links }: { links: ProjectLinks }) {
         </Button>
       )}
       {links.android && (
-        <Button variant="outline" size="sm" asChild>
+        <Button variant="outline" size="sm" asChild className="hover:scale-110 transition-transform duration-300">
           <Link href={links.android} target="_blank">
             <Smartphone className="h-4 w-4 mr-1" />
             Android
@@ -105,7 +105,7 @@ function ProjectLinks({ links }: { links: ProjectLinks }) {
         </Button>
       )}
       {(links.website || links.web) && (
-        <Button variant="outline" size="sm" asChild>
+        <Button variant="outline" size="sm" asChild className="hover:scale-110 transition-transform duration-300">
           <Link href={links.website || links.web || "#"} target="_blank">
             <Globe className="h-4 w-4 mr-1" />
             Website
@@ -113,7 +113,7 @@ function ProjectLinks({ links }: { links: ProjectLinks }) {
         </Button>
       )}
       {links.admin && (
-        <Button variant="outline" size="sm" asChild>
+        <Button variant="outline" size="sm" asChild className="hover:scale-110 transition-transform duration-300">
           <Link href={links.admin} target="_blank">
             <ShieldCheck className="h-4 w-4 mr-1" />
             Admin

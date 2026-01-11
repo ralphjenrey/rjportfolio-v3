@@ -1,4 +1,8 @@
+"use client"
+
+import { useRef } from "react"
 import { Calendar, MapPin } from "lucide-react"
+import { useScrollAnimation } from "@/hooks/use-scroll-animation"
 
 const experiences = [
   {
@@ -68,10 +72,13 @@ const experiences = [
 ]
 
 export function ExperienceSection() {
+  const sectionRef = useRef<HTMLElement>(null)
+  const isVisible = useScrollAnimation(sectionRef)
+  
   return (
-    <section id="experience" className="py-24 px-6 border-t border-border">
+    <section ref={sectionRef} id="experience" className="py-24 px-6 border-t border-border">
       <div className="max-w-6xl mx-auto">
-        <div className="mb-16">
+        <div className={`mb-16 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           <p className="text-primary font-mono text-sm mb-2">CAREER</p>
           <h2 className="text-3xl md:text-4xl font-bold text-foreground">Professional Experience</h2>
         </div>
@@ -80,7 +87,10 @@ export function ExperienceSection() {
           {experiences.map((exp, index) => (
             <div
               key={index}
-              className="p-8 rounded-lg bg-card border border-border hover:border-primary/30 transition-colors"
+              className={`p-8 rounded-lg bg-card border border-border hover:border-primary/30 hover:shadow-lg hover:scale-[1.02] transition-all duration-500 ${
+                isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-8'
+              }`}
+              style={{ transitionDelay: `${index * 150}ms` }}
             >
               <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-6">
                 <div>

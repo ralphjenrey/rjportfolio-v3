@@ -3,7 +3,7 @@ import { AboutSection } from "@/components/about-section"
 import { ExperienceSection } from "@/components/experience-section"
 import { EducationSection } from "@/components/education-section"
 import { ProjectsSection } from "@/components/projects-section"
-import { SkillsSection } from "@/components/skills-section"
+import { TechStackSection } from "@/components/tech-stack-section"
 import { ContactSection } from "@/components/contact-section"
 import { Navigation } from "@/components/navigation"
 import { Footer } from "@/components/footer"
@@ -17,7 +17,7 @@ export default function Home() {
       <ExperienceSection />
       <EducationSection />
       <ProjectsSection />
-      <SkillsSection />
+      <TechStackSection />
       <ContactSection />
       <Footer />
     </main>

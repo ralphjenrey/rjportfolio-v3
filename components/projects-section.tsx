@@ -1,4 +1,8 @@
+"use client"
+
+import { useRef } from "react"
 import { ProjectCard } from "@/components/project-card"
+import { useScrollAnimation } from "@/hooks/use-scroll-animation"
 
 const projects = [
   {
@@ -66,29 +70,43 @@ const projects = [
 ]
 
 export function ProjectsSection() {
+  const sectionRef = useRef<HTMLElement>(null)
+  const isVisible = useScrollAnimation(sectionRef as React.RefObject<HTMLElement>)
   const featuredProjects = projects.filter((p) => p.featured)
   const otherProjects = projects.filter((p) => !p.featured)
 
   return (
-    <section id="projects" className="py-24 px-6 border-t border-border">
+    <section ref={sectionRef} id="projects" className="py-24 px-6 border-t border-border">
       <div className="max-w-6xl mx-auto">
-        <div className="mb-16">
+        <div className={`mb-16 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           <p className="text-primary font-mono text-sm mb-2">SELECTED WORK</p>
           <h2 className="text-3xl md:text-4xl font-bold text-foreground">Featured Projects</h2>
         </div>
 
         <div className="space-y-8">
           {featuredProjects.map((project, index) => (
-            <ProjectCard key={project.title} project={project} index={index} />
+            <div
+              key={project.title}
+              className={`transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+              style={{ transitionDelay: `${(index + 1) * 150}ms` }}
+            >
+              <ProjectCard project={project} index={index} />
+            </div>
           ))}
         </div>
 
         {otherProjects.length > 0 && (
-          <div className="mt-20">
+          <div className={`mt-20 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`} style={{ transitionDelay: '600ms' }}>
             <h3 className="text-xl font-semibold text-foreground mb-8">Other Projects</h3>
             <div className="grid md:grid-cols-2 gap-6">
               {otherProjects.map((project, index) => (
-                <ProjectCard key={project.title} project={project} index={index} compact />
+                <div
+                  key={project.title}
+                  className={`transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+                  style={{ transitionDelay: `${(index + 1) * 150 + 700}ms` }}
+                >
+                  <ProjectCard project={project} index={index} compact />
+                </div>
               ))}
             </div>
           </div>

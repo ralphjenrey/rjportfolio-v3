@@ -7,14 +7,6 @@ export function Footer() {
     <footer className="py-8 px-6 border-t border-border">
       <div className="max-w-6xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4">
         <p className="text-sm text-muted-foreground">© {currentYear} — Crafted with care</p>
-        <div className="flex gap-6">
-          <Link href="#" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-            Privacy
-          </Link>
-          <Link href="#" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-            Imprint
-          </Link>
-        </div>
       </div>
     </footer>
   )

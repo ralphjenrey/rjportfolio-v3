@@ -1,7 +1,8 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useState, useRef } from "react"
 import { Code2, Smartphone, Globe, Database, Brain, Users } from "lucide-react"
+import { useScrollAnimation } from "@/hooks/use-scroll-animation"
 
 const highlights = [
   {
@@ -37,6 +38,8 @@ const highlights = [
 ]
 
 export function AboutSection() {
+  const sectionRef = useRef<HTMLElement>(null)
+  const isVisible = useScrollAnimation(sectionRef as React.RefObject<HTMLElement>)
   const [cardOffsets, setCardOffsets] = useState<number[]>(new Array(highlights.length).fill(0))
 
   useEffect(() => {
@@ -60,14 +63,14 @@ export function AboutSection() {
   }, [])
 
   return (
-    <section id="about" className="py-24 px-6 border-t border-border relative">
+    <section ref={sectionRef} id="about" className="py-24 px-6 border-t border-border relative">
       <div className="absolute inset-0 -z-10 opacity-30">
         <div className="absolute top-1/2 left-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl -translate-y-1/2" />
       </div>
 
       <div className="max-w-6xl mx-auto">
         <div className="grid lg:grid-cols-2 gap-16">
-          <div className="space-y-6">
+          <div className={`space-y-6 transition-all duration-700 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-8'}`}>
             <p className="text-primary font-mono text-sm">ABOUT</p>
             <h2 className="text-3xl md:text-4xl font-bold text-foreground">Full-Stack Engineer & Technical Leader</h2>
             <div className="space-y-4 text-muted-foreground leading-relaxed">
@@ -92,10 +95,12 @@ export function AboutSection() {
             {highlights.map((item, index) => (
               <div
                 key={item.title}
-                className="p-6 rounded-lg bg-card border border-border hover:border-primary/50 transition-all duration-300 hover:shadow-lg hover:shadow-primary/10"
+                className={`p-6 rounded-lg bg-card border border-border hover:border-primary/50 transition-all duration-500 hover:scale-105 hover:shadow-lg hover:shadow-primary/10 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+                  }`}
                 style={{
                   transform: `translateY(${cardOffsets[index]}px)`,
                   transition: "transform 0.1s ease-out",
+                  transitionDelay: `${index * 100}ms`,
                 }}
               >
                 <item.icon className="h-8 w-8 text-primary mb-4" />
