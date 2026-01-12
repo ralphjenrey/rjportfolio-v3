@@ -323,7 +323,7 @@ export function TechStackSection() {
                           width={64}
                           height={64}
                           className={`transition-all duration-300 group-hover:scale-110 ${
-                            tech.invert ? "filter invert dark:invert-0" : ""
+                            tech.invert ? "dark:filter dark:invert" : ""
                           }`}
                         />
                         {activeCategory === tech.name && (

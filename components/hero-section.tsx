@@ -17,6 +17,7 @@ export function HeroSection({ theme = "default" }: HeroSectionProps) {
   const [stars, setStars] = useState<{ id: number; left: number; top: number; delay: number }[]>([])
   const [celestialPosition, setCelestialPosition] = useState(theme === 'light' ? 16 : 16)
   const [isTransitioning, setIsTransitioning] = useState(false)
+  const [isImageZoomed, setIsImageZoomed] = useState(false)
   const prevThemeRef = useRef(theme)
 
   // Dynamic color palette based on theme
@@ -168,10 +169,10 @@ export function HeroSection({ theme = "default" }: HeroSectionProps) {
   // Animate celestial body (sun/moon) on theme change
   useEffect(() => {
     const prevTheme = prevThemeRef.current
-    
+
     if (prevTheme !== theme) {
       setIsTransitioning(true)
-      
+
       // Animate from current position
       if (theme === 'light' && prevTheme === 'dark') {
         // Sunrise: Moon sets (goes down), Sun rises (comes up)
@@ -184,7 +185,7 @@ export function HeroSection({ theme = "default" }: HeroSectionProps) {
       } else {
         setCelestialPosition(16)
       }
-      
+
       setTimeout(() => setIsTransitioning(false), 2000)
       prevThemeRef.current = theme
     }
@@ -211,7 +212,7 @@ export function HeroSection({ theme = "default" }: HeroSectionProps) {
       {/* Sky gradient background */}
       <div
         className="absolute inset-0"
-        style={{ 
+        style={{
           transform: `translateY(${scrollY * 0.1}px)`,
           background: `linear-gradient(to bottom, ${colors.sky1}, ${colors.sky2}, ${colors.sky3})`
         }}
@@ -235,7 +236,7 @@ export function HeroSection({ theme = "default" }: HeroSectionProps) {
       {/* Moon */}
       <div
         className="absolute top-16 right-[15%] w-20 h-20 rounded-full opacity-90 blur-[1px]"
-        style={{ 
+        style={{
           transform: `translateY(${scrollY * 0.08}px)`,
           background: `linear-gradient(to bottom right, ${theme === 'light' ? '#FFE87C' : '#f5f0e6'}, ${theme === 'light' ? '#FFC125' : '#d4c9b5'})`
         }}
@@ -398,7 +399,7 @@ export function HeroSection({ theme = "default" }: HeroSectionProps) {
       {/* Mist/fog layer */}
       <div
         className="absolute bottom-[15%] left-0 right-0 h-32"
-        style={{ 
+        style={{
           transform: `translateY(${scrollY * 0.5}px)`,
           background: `linear-gradient(to top, ${colors.ground}4D, transparent)`
         }}
@@ -420,26 +421,18 @@ export function HeroSection({ theme = "default" }: HeroSectionProps) {
                 }`}
             >
               <div className="relative">
-                <div 
-                  className="absolute inset-0 rounded-full blur-xl opacity-50 animate-pulse" 
+                <div
+                  className="absolute inset-0 rounded-full blur-xl opacity-50 animate-pulse"
                   style={{ background: `linear-gradient(to right, ${colors.accent}, ${colors.text})` }}
                 />
                 <Image
-                  src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=200&h=200&fit=crop&auto=format"
+                  src="/profile.png"
                   alt="Profile"
                   width={200}
                   height={200}
-                  className="relative rounded-full border-4 shadow-2xl"
+                  className="relative rounded-full border-4 shadow-2xl object-cover aspect-square"
                   style={{ borderColor: `${colors.accent}4D` }}
                   priority
-                />
-                {/* Extra creative profile overlay */}
-                <Image
-                  src="https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?w=60&h=60&fit=crop&auto=format"
-                  alt=""
-                  width={60}
-                  height={60}
-                  className="absolute -top-6 -right-6 rounded-full border-2 border-white shadow-lg opacity-70"
                 />
               </div>
             </div>
@@ -482,12 +475,12 @@ export function HeroSection({ theme = "default" }: HeroSectionProps) {
               className={`flex flex-wrap justify-center gap-4 pt-6 transition-all duration-700 delay-600 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
                 }`}
             >
-              <Button 
-                asChild 
-                size="lg" 
+              <Button
+                asChild
+                size="lg"
                 className="font-medium px-8"
-                style={{ 
-                  backgroundColor: colors.accent, 
+                style={{
+                  backgroundColor: colors.accent,
                   color: colors.sky1,
                 }}
               >
@@ -498,8 +491,8 @@ export function HeroSection({ theme = "default" }: HeroSectionProps) {
                 size="lg"
                 asChild
                 className="px-8 bg-transparent"
-                style={{ 
-                  borderColor: `${colors.accent}80`, 
+                style={{
+                  borderColor: `${colors.accent}80`,
                   color: colors.accent,
                 }}
               >
