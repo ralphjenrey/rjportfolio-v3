@@ -3,6 +3,10 @@ import { NextRequest, NextResponse } from "next/server"
 
 const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY || "" })
 
+// Cache for storing the cached content
+let cachedContent: any = null
+let cacheExpiry: number = 0
+
 const changeThemeTool = {
   name: "change_theme",
   description: "IMMEDIATELY changes the color theme of the website when the user requests it. Do NOT ask for confirmation or offer choices - just call this function directly with the requested theme. Accepts any color name (e.g., 'dark', 'light', 'blue', 'red', 'green', 'purple', 'pink', 'orange', 'yellow', 'cyan', 'rose', 'slate', 'teal', 'system').",
@@ -109,27 +113,56 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Message is required" }, { status: 400 })
     }
 
-    const chat = ai.chats.create({
-      model: "gemini-2.5-flash",
-      config: {
-        tools: [{ functionDeclarations: [changeThemeTool] }],
-        toolConfig: {
-          functionCallingConfig: {
-            mode: "AUTO",
+    // Create or reuse cached content
+    const now = Date.now()
+    if (!cachedContent || now > cacheExpiry) {
+      try {
+        cachedContent = await ai.caches.create({
+          model: "gemini-2.5-flash",
+          config: {
+            displayName: "portfolio_context",
+            systemInstruction: PORTFOLIO_CONTEXT,
+            tools: [{ functionDeclarations: [changeThemeTool] }],
+            toolConfig: {
+              functionCallingConfig: {
+                mode: "AUTO",
+              },
+            },
+            ttl: "3600s", // 1 hour
+          },
+        })
+        // Cache expires in 1 hour
+        cacheExpiry = now + (60 * 60 * 1000)
+        console.log("Created new cached content:", cachedContent.name)
+      } catch (error) {
+        console.error("Cache creation failed, falling back to non-cached:", error)
+        cachedContent = null
+      }
+    }
+
+    // Create chat using cached content
+    let chat
+    if (cachedContent) {
+      chat = ai.chats.create({
+        model: "gemini-2.5-flash",
+        config: {
+          cachedContent: cachedContent.name,
+        },
+      })
+    } else {
+      chat = ai.chats.create({
+        model: "gemini-2.5-flash",
+        config: {
+          systemInstruction: PORTFOLIO_CONTEXT,
+          tools: [{ functionDeclarations: [changeThemeTool] }],
+          toolConfig: {
+            functionCallingConfig: {
+              mode: "AUTO",
+            },
           },
         },
-      },
-      history: [
-        {
-          role: "user",
-          parts: [{ text: PORTFOLIO_CONTEXT }],
-        },
-        {
-          role: "model",
-          parts: [{ text: "I understand. I'm ready to help visitors learn about Ralph Jenrey Loquellano's portfolio and assist with theme changes." }],
-        },
-      ],
-    })
+      })
+    }
 
     const result = await chat.sendMessage({
       message: message
