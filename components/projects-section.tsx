@@ -3,6 +3,7 @@
 import { useRef } from "react"
 import { ProjectCard } from "@/components/project-card"
 import { useScrollAnimation } from "@/hooks/use-scroll-animation"
+import { link } from "fs"
 
 const projects = [
   {
@@ -66,6 +67,16 @@ const projects = [
     },
     image: "/tablu.png",
     featured: false,
+  },
+  {
+    title: "Kain-ta",
+    description:
+      "Food discovery and social networking app that connects food enthusiasts. Built with React Native, Express JS, and MongoDB.",
+    tags: ["React Native", "Express JS", "MongoDB"],
+    image: "/kain-ta.png",
+    featured: false,
+    links: {
+    }
   }
 ]
 
