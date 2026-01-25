@@ -39,11 +39,14 @@ export function EducationSection() {
               <p className="text-muted-foreground">
                 <span className="font-semibold text-foreground">Honors:</span> Cum Laude
               </p>
+              <p className="text-muted-foreground">
+                <span className="font-semibold text-foreground">Awards:</span> Best Intern 2025
+              </p>
             </div>
           </div>
 
           {/* Resume Download */}
-          <div className={`p-8 rounded-lg bg-card border border-border flex flex-col justify-between hover:shadow-lg hover:scale-[1.02] transition-all duration-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+          {/* <div className={`p-8 rounded-lg bg-card border border-border flex flex-col justify-between hover:shadow-lg hover:scale-[1.02] transition-all duration-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
             }`} style={{ transitionDelay: '300ms' }}>
             <div>
               <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
@@ -61,7 +64,7 @@ export function EducationSection() {
             >
               Download PDF
             </a>
-          </div>
+          </div> */}
         </div>
 
         {/* Certifications */}
